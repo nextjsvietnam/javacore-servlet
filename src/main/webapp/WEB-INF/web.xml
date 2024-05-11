@@ -4,4 +4,32 @@
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
   <!-- Your web-app contents -->
+  <context-param>
+    <param-name>authorizationToken</param-name>
+    <param-value>javacore.net</param-value>
+  </context-param>
+<!--  <servlet>-->
+<!--    <servlet-name>ContextServlet</servlet-name>-->
+<!--    <servlet-class>ContextServlet</servlet-class>-->
+<!--    <init-param>-->
+<!--      <param-name>privateKey</param-name>-->
+<!--      <param-value>net.javacore</param-value>-->
+<!--    </init-param>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>ContextServlet</servlet-name>-->
+<!--    <url-pattern>/token</url-pattern>-->
+<!--  </servlet-mapping>-->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/500.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/500.jsp</location>
+  </error-page>
 </web-app>
