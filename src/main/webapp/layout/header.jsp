@@ -13,3 +13,6 @@
     </head>
     <body>
         <div class="container">
+            <form method="get" action="logout" >
+                <input class="btn btn-primary" type="submit" value="Logout" />
+            </form>

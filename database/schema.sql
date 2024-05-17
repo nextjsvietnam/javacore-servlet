@@ -1,4 +1,4 @@
-CREATE SCHEMA `jsp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+CREATE SCHEMA IF NOT EXISTS `jsp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 USE jsp;
 
@@ -31,3 +31,17 @@ INSERT INTO jsp_employees (first_name, email, last_name)
 VALUES ('Swift',  'mrswift@nextjsvietnam.com', 'Mr');
 INSERT INTO jsp_employees (first_name, email, last_name)
 VALUES ('Dart',  'mrdart@nextjsvietnam.com', 'Mr');
+
+DROP TABLE IF EXISTS jsp_users;
+
+CREATE TABLE IF NOT EXISTS jsp_users (
+                                             id INT NOT NULL AUTO_INCREMENT,
+                                             full_name VARCHAR(250) NOT NULL,
+                                             email VARCHAR(250) NOT NULL,
+                                             password VARCHAR(250) NOT NULL,
+                                             PRIMARY KEY (id),
+                                             CONSTRAINT UC_EMAIL UNIQUE (email)
+);
+
+INSERT INTO jsp_users(full_name, email, password)
+VALUES('Mr Java', 'techlead@javacore.net', '123456');

@@ -1,3 +1,4 @@
+import dao.LoginDao;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -17,10 +18,14 @@ import java.util.ArrayList;
 public class CookieServlet extends HttpServlet {
 
     private User doLogin(String email, String password) {
-        var config = getServletConfig();
-        String systemEmail = config.getInitParameter("email");
-        String systemPassword = config.getInitParameter("password");
-        if(systemEmail.equals(email) && systemPassword.equals(password)) {
+//        var config = getServletConfig();
+//        String systemEmail = config.getInitParameter("email");
+//        String systemPassword = config.getInitParameter("password");
+//        if(systemEmail.equals(email) && systemPassword.equals(password)) {
+//            return new User(1, email);
+//        }
+        LoginDao dao = new LoginDao();
+        if(dao.check(email, password)){
             return new User(1, email);
         }
         return null;
@@ -29,6 +34,11 @@ public class CookieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var context = req.getServletContext();
+        String redirectUrl = req.getParameter("redirectUrl");
+
+        if(redirectUrl != null) {
+            req.getSession().setAttribute("redirectUrl", redirectUrl);
+        }
         context.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
     }
 
@@ -57,6 +67,9 @@ public class CookieServlet extends HttpServlet {
         Cookie userCookie = new Cookie("user", user.convertToCookieValue());
         resp.addCookie(userCookie);
         // redirect to dashboard after login successful
-        resp.sendRedirect(req.getContextPath() + "/dashboard");
+        var redirectUrlSession = req.getSession().getAttribute("redirectUrl");
+        String redirectUrl = redirectUrlSession != null ? redirectUrlSession.toString() : "/dashboard";
+        String redirectPath = req.getContextPath() + redirectUrl;
+        resp.sendRedirect(redirectPath);
     }
 }

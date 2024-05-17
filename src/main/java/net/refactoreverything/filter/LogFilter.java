@@ -27,8 +27,9 @@ public class LogFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         User user = getLogggedInUser(req, resp);
+        String servletPath = req.getServletPath();
         if(user == null)
-           resp.sendRedirect("/login");
+           resp.sendRedirect("/login?redirectUrl=" + servletPath);
         else
             chain.doFilter(request, response);
     }
