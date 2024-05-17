@@ -1,16 +1,16 @@
-package net.refactoreverything.model;
+package model;
 
 public class Employee {
     private int id;
-    private int age;
-    private String first;
-    private String last;
+    private String email;
+    private String firstName;
+    private String lastName;
 
-    public Employee(int id, int age, String first, String last) {
+    public Employee(int id, String email, String firstName, String lastName) {
         this.id = id;
-        this.age = age;
-        this.first = first;
-        this.last = last;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Employee() {}
@@ -23,27 +23,27 @@ public class Employee {
         this.id = id;
     }
 
-    public int getAge() {
-        return age;
+    public String getAge() {
+        return email;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(String email) {
+        this.email = email;
     }
 
     public String getFirst() {
-        return first;
+        return firstName;
     }
 
-    public void setFirst(String first) {
-        this.first = first;
+    public void setFirst(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLast() {
-        return last;
+        return lastName;
     }
 
-    public void setLast(String last) {
-        this.last = last;
+    public void setLast(String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="net.refactoreverything.model.Employee" %>
+<%@ page import="model.Employee" %>
 <%@ page import="java.util.ArrayList" %>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<sql:setDataSource var="db" driver="com.mysql.cj.jdbc.Driver" />
 
 <%
     String DB_URL = "jdbc:mysql://localhost:3306/jsp";
@@ -17,18 +19,18 @@
         Statement statement = connection.createStatement();
 
         // Execute a SQL query
-        String sql = "SELECT * FROM Employees";
+        String sql = "SELECT * FROM jsp_employees";
         ResultSet resultSet = statement.executeQuery(sql);
 
         // Process the ResultSet
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            String first = resultSet.getString("first");
-            String last = resultSet.getString("last");
-            int age = resultSet.getInt("age");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
 
             // Create an Employee object and add it to the list
-            Employee employee = new Employee(id, age, first, last);
+            Employee employee = new Employee(id, email, firstName, lastName);
             employees.add(employee);
         }
     } catch (ClassNotFoundException e) {
@@ -44,16 +46,19 @@
             }
         }
     }
+    request.setAttribute("pageTitle", "Employees");
 %>
 
 <%@ include file="layout/header.jsp" %>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-    </tr>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
     <% for (Employee employee : employees) { %>
     <tr>
         <td><%= employee.getId() %></td>
